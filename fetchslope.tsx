@@ -19,6 +19,45 @@ type CorrelatedSlopeInterval = {
 };
 
 /**
+ * Haversine formula to calculate distance between two geographic points (in meters)
+ */
+function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371000; // Earth radius in meters
+  const φ1 = lat1 * (Math.PI / 180); // Convert latitude to radians
+  const φ2 = lat2 * (Math.PI / 180); // Convert latitude to radians
+  const Δφ = (lat2 - lat1) * (Math.PI / 180); // Difference in latitudes
+  const Δλ = (lon2 - lon1) * (Math.PI / 180); // Difference in longitudes
+
+  const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) *
+    Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  
+  return R * c; // Distance in meters
+}
+
+/**
+ * Merges points that are within the specified threshold distance (in meters)
+ */
+function mergeClosePoints(points: number[][], threshold: number = 15): number[][] {
+  const mergedPoints: number[][] = [];
+  
+  points.forEach(point => {
+    if (mergedPoints.length === 0) {
+      mergedPoints.push(point);
+    } else {
+      const lastPoint = mergedPoints[mergedPoints.length - 1];
+      const distance = haversineDistance(lastPoint[1], lastPoint[0], point[1], point[0]);
+      if (distance > threshold) {
+        mergedPoints.push(point);
+      }
+    }
+  });
+  
+  return mergedPoints;
+}
+
+/**
  * Constructs the GraphHopper route API URL with customizable parameters.
  */
 async function fetchRoute(params: RouteParams): Promise<any> {
@@ -139,8 +178,18 @@ async function main() {
   try {
     const routeData = await fetchRoute(params);
     const correlatedSegments = extractCorrelatedSlopeSegments(routeData, 20, 5);
-    console.log("Correlated segments where max slope >= 25 or <= -25 and avg slope >= 10 or <= -10:");
-    console.log(JSON.stringify(correlatedSegments, null, 2));
+
+    // Merge close points (within 15 meters)
+    const allPoints: number[][] = [];
+    correlatedSegments.forEach((segment) => {
+      segment.segment.forEach((point) => {
+        allPoints.push(point);
+      });
+    });
+
+    const mergedPoints = mergeClosePoints(allPoints, 15);
+    console.log("Merged Points (within 15 meters):");
+    console.log(JSON.stringify(mergedPoints, null, 2));
   } catch (error) {
     console.error("Error fetching or processing route data:", error);
   }
