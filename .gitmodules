@@ -1,0 +1,3 @@
+[submodule "six-apples-frontend"]
+	path = six-apples-frontend
+	url = git@github.com:OliverZim/six-apples-frontend.git
