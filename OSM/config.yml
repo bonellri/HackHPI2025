@@ -30,18 +30,18 @@ graphhopper:
 
   profiles:
 
-   - name: foot
-     custom_model_files: [foot.json, foot_elevation.json]
-   - name: wheelchair
-     custom_model_files: [wheelchair.json]
-   - name: wheelchair_automatic
-     custom_model_files: [wheelchair.json,wheelchair_automatic.json]
-   - name: elderly
-     custom_model_files: [elderly.json]
-   - name: severelydisabled
-     custom_model_files: [severelydisabled.json]
-   - name: prosthesis
-     custom_model_files: [prosthesis.json]
+  - name: foot
+    custom_model_files: [foot.json, foot_elevation.json]
+  - name: wheelchair
+    custom_model_files: [wheelchair.json, wheelchair_elevation.json]
+  - name: wheelchair_automatic
+    custom_model_files: [wheelchair.json, wheelchair_automatic.json, wheelchair_automatic_elevation.json]
+  - name: elderly
+    custom_model_files: [elderly.json, elderly_elevation.json]
+  - name: severelydisabled
+    custom_model_files: [severelydisabled.json, severelydisabled_elevation.json]
+  - name: prosthesis
+    custom_model_files: [prosthesis.json, prosthesis_elevation.json]
 
 
 #    # See the bus.json for more details.
@@ -75,7 +75,7 @@ graphhopper:
   # profile for which an LM profile exists. Important: This only will give correct routing results if the weights
   # calculated for the profile are equal or larger (for every edge) than those calculated for the profile that was used
   # for the preparation (`my_other_profile`)
-  profiles_lm: [foot,wheelchair,wheelchair_automatic,prosthesis,elderly,severelydisabled]
+#  profiles_lm: [foot,wheelchair,wheelchair_automatic,prosthesis,elderly,severelydisabled]
 
 
   #### Encoded Values ####
@@ -85,7 +85,7 @@ graphhopper:
   # More are: surface,smoothness,max_width,max_height,max_weight,max_weight_except,hgv,max_axle_load,max_length,
   #           hazmat,hazmat_tunnel,hazmat_water,lanes,osm_way_id,toll,track_type,mtb_rating,hike_rating,horse_rating,
   #           country,curvature,average_slope,max_slope,car_temporal_access,bike_temporal_access,foot_temporal_access
-  graph.encoded_values: foot_access, hike_rating, mtb_rating, foot_priority, foot_average_speed, average_slope,country, road_class, surface, road_environment, foot_network
+  graph.encoded_values: foot_access, hike_rating, mtb_rating, foot_priority, foot_average_speed, average_slope,country, road_class, surface, road_environment, foot_network, max_slope
 
   #### Speed, hybrid and flexible mode ####
 
