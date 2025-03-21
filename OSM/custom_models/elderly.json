@@ -34,7 +34,7 @@
       { "if": "road_class == ROAD", "limit_to": "2.0" },
       { "if": "road_class == TRACK", "limit_to": "1.5" },
       { "if": "road_class == BRIDLEWAY", "limit_to": "0" },
-      { "if": "road_class == STEPS", "limit_to": "0" },
+      { "if": "road_class == STEPS", "limit_to": "0.8" },
       { "if": "road_class == CYCLEWAY", "limit_to": "0" },
       { "if": "road_class == PATH", "limit_to": "3.0" },
       { "if": "road_class == LIVING_STREET", "limit_to": "3.0" },
