@@ -177,7 +177,7 @@ async function main() {
 
   try {
     const routeData = await fetchRoute(params);
-    const correlatedSegments = extractCorrelatedSlopeSegments(routeData, 20, 5);
+    const correlatedSegments = extractCorrelatedSlopeSegments(routeData, 25, 7);
 
     // Merge close points (within 15 meters)
     const allPoints: number[][] = [];
