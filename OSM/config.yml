@@ -32,14 +32,14 @@ graphhopper:
 
   - name: foot
     custom_model_files: [foot.json, foot_elevation.json]
+  - name: negative
+    custom_model_files: [negative.json]
   - name: wheelchair
     custom_model_files: [wheelchair.json, wheelchair_elevation.json]
   - name: wheelchair_automatic
     custom_model_files: [wheelchair.json, wheelchair_automatic.json, wheelchair_automatic_elevation.json]
   - name: elderly
     custom_model_files: [elderly.json, elderly_elevation.json]
-  - name: severelydisabled
-    custom_model_files: [severelydisabled.json, severelydisabled_elevation.json]
   - name: prosthesis
     custom_model_files: [prosthesis.json, prosthesis_elevation.json]
 
